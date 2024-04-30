@@ -45,6 +45,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @if($transaksi->type == "toko")
                     @foreach($listed as $barang)
                     <tr>
                         <input type="hidden" name="barang[{{ $loop->iteration }}]" value="{{ $barang[0]->id_barang }}">
@@ -53,6 +54,9 @@
                         <td>{{ 'Rp ' . number_format($barang[0]->harga_jual*$barang[1], 0, ',', '.') }}</td>
                     </tr>
                     @endforeach
+                    @elseif($transaksi->type == "jt")
+                    <p>{{$transaksi->note}}</p>
+                    @endif
                 </tbody>
             </table>
             <div class="total">

@@ -112,6 +112,41 @@ class kasirController extends Controller
         return view('kasir.receipt',compact('transaksi','statsantri','userpembeli','total','listed'));
     }
 
+    public function custom_store(Request $request)
+    {
+        $statsantri = false;
+        $total = $request->total;
+        $transaksi = new transaksi();
+        $transaksi->id_pembeli = $request->pembeli;
+        $transaksi->id_penjual = Auth::id();
+        $transaksi->note = $request->note;
+        $transaksi->type = 'jt';
+        if($request->pembeli == 1){
+            $transaksi->cash = $request->cash;
+            $transaksi->transfer = $request->transfer;
+            $transaksi->kembalian =  ($request->cash + $request->transfer)-$request->total;
+        }else{
+            $pembeli = User::findOrFail($request->pembeli);
+            $pembeli->saldo -= $request->total;
+            $pembeli->save();
+            $transaksi->saldo_santri = $request->total;
+            $statsantri = true;
+        }
+        if($transaksi->save()){
+            if($request->pembeli != 1){
+                $data = [
+                    'id_santri' => $request->pembeli,
+                    'nominal' => $request->total,
+                    'note' => $request->note,
+                    // tambahkan atribut lainnya sesuai kebutuhan
+                ];
+                $response = Http::post('localhost:1880/bot-notifier-custom', $data);
+            }
+        }
+        $userpembeli = User::findOrFail($request->pembeli);
+        return view('kasir.receipt',compact('transaksi','statsantri','userpembeli','total'));
+    }
+
     public function sumary(Request $request)
     {
         // dd($request->barang);
@@ -122,6 +157,13 @@ class kasirController extends Controller
         }
         $user = User::get();
         return view('kasir.sumary',compact('user','total'));
+    }
+
+    public function custom()
+    {
+        // dd($request->barang);
+        $user = User::get();
+        return view('kasir.custom',compact('user'));
     }
 
     public function tambahlist(Request $request)

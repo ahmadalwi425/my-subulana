@@ -35,6 +35,8 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::get('/kasir', [App\Http\Controllers\kasirController::class, 'index']);
+    Route::get('/kasir/custom', [App\Http\Controllers\kasirController::class, 'custom']);
+    Route::post('/kasir/custom/store', [App\Http\Controllers\kasirController::class, 'custom_store']);
     Route::post('/kasir/store', [App\Http\Controllers\kasirController::class, 'store']);
     Route::post('/kasir/bayar', [App\Http\Controllers\kasirController::class, 'sumary']);
     Route::post('/kasir/tambahlist', [App\Http\Controllers\kasirController::class, 'tambahlist']);

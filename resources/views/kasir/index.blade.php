@@ -73,6 +73,7 @@
                 <button type="submit" class="btn btn-primary">Lanjutkan ke Pembayaran</button>
             @endif
         </form>
+        <a href="{{url('/kasir/custom')}}" style="margin:15px;" class="btn btn-primary">Pembelian Khusus</a>
     </div>
 </div> 
 @endsection
