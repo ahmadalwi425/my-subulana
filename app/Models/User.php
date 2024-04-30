@@ -13,6 +13,7 @@ use App\Models\barang_masuk;
 use App\Models\transaksi;
 use App\Models\konfirmasi;
 use App\Models\kiriman;
+use App\Models\kiriman_manual;
 
 class User extends Authenticatable
 {
@@ -62,6 +63,9 @@ class User extends Authenticatable
     }
     public function kiriman(){
         return $this->hasMany(kiriman::class);
+    }
+    public function kiriman_manual(){
+        return $this->hasMany(kiriman_manual::class);
     }
     public function konfimasi(){
         return $this->hasMany(kkonfirmasi::class);

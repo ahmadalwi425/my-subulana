@@ -44,6 +44,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/testbot', [App\Http\Controllers\kasirController::class, 'testbot']);
 
     Route::get('/konfirmasi', [App\Http\Controllers\konfirmasiController::class, 'konfirmasi']);
+    Route::get('/konfirmasi/manual', [App\Http\Controllers\konfirmasiController::class, 'manual']);
+    Route::post('/konfirmasi/manual/store', [App\Http\Controllers\konfirmasiController::class, 'manual_store']);
     Route::get('/konfirmasi/terima/{id}', [App\Http\Controllers\konfirmasiController::class, 'terimaKonfirmasi']);
     Route::get('/konfirmasi/tolak/{id}', [App\Http\Controllers\konfirmasiController::class, 'tolakKonfirmasi']);
 

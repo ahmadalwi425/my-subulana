@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\konfirmasi;
 use Illuminate\Support\Facades\Http;
 use App\Models\kiriman;
+use App\Models\kiriman_manual;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -17,6 +18,33 @@ class konfirmasiController extends Controller
         $data = konfirmasi::get()->sortByDesc('waktu_kirim');
         // dd($data);
         return view('kiriman.konfirmasi',compact('data'));
+    }
+
+    public function manual()
+    {
+        $data = User::get();
+        return view('kiriman.manual',compact('data'));
+    }
+
+    public function manual_store(Request $request)
+    {
+        $user = User::findOrFail($request->id_santri);
+        $user->saldo += $request->nominal;
+        if($user->save()){
+            $manual = new kiriman_manual;
+            $manual->id_santri = $request->id_santri;
+            $manual->nominal = $request->nominal;
+            $manual->catatan = $request->catatan;
+            $manual->save();
+            $data = [
+                'id_santri' => $request->id_santri,
+                'nominal' => $request->nominal,
+                'note' => $request->catatan,
+                // tambahkan atribut lainnya sesuai kebutuhan
+            ];
+            $response = Http::post('localhost:1880/bot-notifier-kiriman-custom', $data);
+        }
+        return redirect('konfirmasi/manual');
     }
 
     public function terimaKonfirmasi($id)
