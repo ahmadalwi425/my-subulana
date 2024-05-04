@@ -32,7 +32,8 @@
                         <td>{{ $barang->harga_jual }}</td>
                         <td>
                             <a class="btn btn-success" href="{{url('barang/tambah/'.$barang->id_barang)}}">Tambah</a> 
-                            <a class="btn btn-warning" href="{{url('barang/kurang/'.$barang->id_barang)}}">Kurang</a>  
+                            <a class="btn btn-warning" href="{{url('barang/kurang/'.$barang->id_barang)}}">Kurang</a> 
+                            <a class="btn btn-warning" href="{{url('barang/edit/'.$barang->id_barang)}}">Edit</a> 
                         </td>
                         <td>
                             <form method="POST" action="{{ url('barang/hapus/'.$barang->id_barang) }}">

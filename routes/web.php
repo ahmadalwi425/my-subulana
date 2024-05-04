@@ -30,6 +30,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/barang/store', [App\Http\Controllers\barangController::class, 'store']);
     Route::get('/barang/tambah/{id}', [App\Http\Controllers\barangController::class, 'tambah']);
     Route::get('/barang/kurang/{id}', [App\Http\Controllers\barangController::class, 'kurang']);
+    Route::get('/barang/edit/{id}', [App\Http\Controllers\barangController::class, 'edit']);
+    Route::post('/barang/update/{id}', [App\Http\Controllers\barangController::class, 'update']);
     Route::post('/barang/tambah/proses', [App\Http\Controllers\barangController::class, 'tambah_proses']);
     Route::post('/barang/kurang/proses', [App\Http\Controllers\barangController::class, 'kurang_proses']);
 
