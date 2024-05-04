@@ -43,6 +43,7 @@
                         <th>Harga Jual</th>
                         <th>Harga Total</th>
                         <th  style="width: 100px;">Jumlah</th>
+                        <th>Kurangi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,7 +60,9 @@
                         <input type="hidden" name="jumlah[{{ $loop->iteration }}]" value="{{$barang[1]}}">
                         <td>{{ 'Rp ' . number_format($barang[0]->harga_jual*$barang[1], 0, ',', '.') }}</td>
                         <td><input type="number" class="form-control" value="{{$barang[1]}}" disabled required></td>
-                        
+                        <td>
+                        <a href="{{url('kasir/kuranglist/'.$barang[0]->id_barang)}}" class="btn btn-danger">Kurangi 1</a>
+                        </td>
                     </tr>
                     @endforeach
                 @endif
@@ -73,7 +76,8 @@
                 <button type="submit" class="btn btn-primary">Lanjutkan ke Pembayaran</button>
             @endif
         </form>
-        <a href="{{url('/kasir/custom')}}" style="margin:15px;" class="btn btn-primary">Pembelian Khusus</a>
+        <a href="{{url('/kasir/custom')}}" style="margin:15px;" class="btn btn-primary">Pembelian Khusus</a><br>
+        <a href="{{url('/kasir/clear')}}" style="margin:15px;" class="btn btn-danger">Bersihkan List Belanja</a>
     </div>
 </div> 
 @endsection

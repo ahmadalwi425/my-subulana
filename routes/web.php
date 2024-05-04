@@ -48,7 +48,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/kasir/store', [App\Http\Controllers\kasirController::class, 'store']);
     Route::post('/kasir/bayar', [App\Http\Controllers\kasirController::class, 'sumary']);
     Route::post('/kasir/tambahlist', [App\Http\Controllers\kasirController::class, 'tambahlist']);
-    Route::get('/kasir/sd', [App\Http\Controllers\kasirController::class, 'sessiondestroyer']);
+    Route::get('/kasir/kuranglist/{id}', [App\Http\Controllers\kasirController::class, 'kuranglist']);
+    Route::get('/kasir/clear', [App\Http\Controllers\kasirController::class, 'sessiondestroyer']);
     Route::get('/testbot', [App\Http\Controllers\kasirController::class, 'testbot']);
 
     Route::get('/konfirmasi', [App\Http\Controllers\konfirmasiController::class, 'konfirmasi']);

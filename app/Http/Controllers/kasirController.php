@@ -17,6 +17,7 @@ class kasirController extends Controller
     {
         // dd(Session::get('listed'));
         Session::forget('listed');
+        return redirect('kasir');
     }
 
     public function testbot()
@@ -206,4 +207,42 @@ class kasirController extends Controller
 
         return redirect('kasir');
     }
+
+    public function kuranglist($id)
+{
+    // Mengambil ID barang dari permintaan
+    $id_barang = $id;
+
+    // Mengambil data array dari sesi
+    $listed = Session::get('listed');
+
+    // Jika ada data di dalam array
+    if (!empty($listed)) {
+        // Loop melalui setiap barang dalam daftar belanja
+        foreach ($listed as $key => $item) {
+            // Jika ID barang cocok dengan ID yang diberikan
+            if ($item[0]->id_barang == $id_barang) {
+                // Kurangi jumlah barang
+                $listed[$key][1]--;
+                // Jika jumlah barang menjadi 0 atau kurang, hapus barang dari daftar belanja
+                if ($listed[$key][1] <= 0) {
+                    unset($listed[$key]);
+                }
+                // Jika daftar belanja kosong setelah mengurangi barang, hapus sesi 'listed'
+                if (empty($listed)) {
+                    Session::forget('listed');
+                } else {
+                    // Jika tidak kosong, update sesi dengan daftar belanja yang diperbarui
+                    Session::put('listed', $listed);
+                }
+                // Kembali ke halaman kasir atau halaman lain yang sesuai
+                return redirect('kasir');
+            }
+        }
+    }
+
+    // Jika tidak ada barang dengan ID yang cocok, kembali ke halaman kasir
+    return redirect('kasir');
+}
+
 }
