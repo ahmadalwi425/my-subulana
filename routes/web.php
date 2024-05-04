@@ -38,7 +38,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/user/store', [App\Http\Controllers\userController::class, 'store']);
     Route::get('/user/edit/{id}', [App\Http\Controllers\userController::class, 'edit']);
     Route::post('/user/update/{id}', [App\Http\Controllers\userController::class, 'update']);
-    Route::post('/user/disable/{id}', [App\Http\Controllers\userController::class, 'destroy']);
+    Route::get('/user/disable/{id}', [App\Http\Controllers\userController::class, 'destroy']);
 
     Route::get('/kasir', [App\Http\Controllers\kasirController::class, 'index']);
     Route::get('/kasir/custom', [App\Http\Controllers\kasirController::class, 'custom']);
