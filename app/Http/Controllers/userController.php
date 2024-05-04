@@ -100,6 +100,9 @@ class userController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->active = 0;
+        $user->save();
+        return redirect('user');
     }
 }
