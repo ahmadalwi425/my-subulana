@@ -83,6 +83,11 @@
 								<i class="fa fa-thumbs-o-up "></i>Kiriman Manual
 							</a>
 						</li>
+						<li>
+							<a href="{{url('user')}}">
+								<i class="fa fa-user "></i>User
+							</a>
+						</li>
                         <li>
 							<a href="ui.html">
 								<i class="fa fa-key "></i>Admin
